@@ -6,15 +6,23 @@ public class Przeciwnik {
     protected String typ;
     protected boolean czyPotwor;
     protected Bron bron;
-
-
+    protected double wymaganeDoLvl;
+    protected int iloscZyc;
 
     int getmoc(){
         return moc;
     }
 
+    void setmoc(int m){
+        moc = m;
+    }
+
     int getlvl(){
         return lvl;
+    }
+
+    void setlvl(int level) {
+        lvl = level;
     }
 
     double getexp(){
@@ -41,8 +49,23 @@ public class Przeciwnik {
         return czyPotwor;
     }
 
-
     Bron getbron(){
         return bron;
+    }
+
+    double getWymaganeDoLvl(){
+        return wymaganeDoLvl;
+    }
+
+    void setWymaganeDoLvl(double wymagane){
+        wymaganeDoLvl = wymagane;
+    }
+
+    int getilosczyc(){
+        return iloscZyc;
+    }
+
+    void setIloscZyc(int ilZyc){
+        iloscZyc = ilZyc;
     }
 }

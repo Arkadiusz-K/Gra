@@ -7,6 +7,8 @@ public class Postac extends Przeciwnik{
         this.hp = hp;
         typ = t;
         czyPotwor = czypo;
+        wymaganeDoLvl = 5;
+        iloscZyc = 3;
     }
 
     void wezBron(Bron br){
@@ -14,6 +16,6 @@ public class Postac extends Przeciwnik{
             System.out.println(typ+" wzial nowa bron!");
             bron = br;
         } else
-            System.out.println(typ+" nie moze wziac tej broni, za niski lvl!");
+            System.out.println(typ+" jeszcze zyje");
     }
 }
