@@ -1,12 +1,11 @@
 public class Arena {
 
-    void tura(Przeciwnik hero, Przeciwnik pr){
+    void bitwa(Przeciwnik hero, Przeciwnik pr){
             while(true) {
                 obrona(hero, pr);
                 if (!sprawdzCzyZyje(hero)) return;
                 atakBronia(hero, pr);
                 if (!sprawdzCzyPrzeciwnikZyje(hero, pr)) return;
-                System.out.println("Doszlismy do konca tury");
             }
     }
 
@@ -27,20 +26,6 @@ public class Arena {
 
     }
 
-    void sprawdzLvl(Przeciwnik hero){
-        if((hero.getexp()-hero.getWymaganeDoLvl())>=0) {
-            hero.setlvl(hero.getlvl() + 1);
-            double doNastepnegoLvl = hero.getexp()-hero.getWymaganeDoLvl();
-            System.out.println(hero.gettyp()+" zdobywa lvl!");
-            System.out.println("Teraz jego lvl to: "+hero.getlvl());
-            hero.setexp(doNastepnegoLvl);
-            hero.sethp(hero.gethp()+2);
-            hero.setmoc(hero.getmoc()+1);
-            System.out.println("ilosc exp: "+hero.getexp());
-            if(doNastepnegoLvl>=hero.getWymaganeDoLvl()) sprawdzLvl(hero);
-        }
-    }
-
     boolean sprawdzCzyZyje(Przeciwnik hero){
         if(hero.gethp()<0){
             System.out.println(hero.gettyp()+" przegral, tracisz zycie");
@@ -57,5 +42,19 @@ public class Arena {
             sprawdzLvl(hero);
             return false;
         } else return true;
+    }
+
+    void sprawdzLvl(Przeciwnik hero){
+        if((hero.getexp()-hero.getWymaganeDoLvl())>=0) {
+            hero.setlvl(hero.getlvl() + 1);
+            double doNastepnegoLvl = hero.getexp()-hero.getWymaganeDoLvl();
+            System.out.println(hero.gettyp()+" zdobywa lvl!");
+            System.out.println("Teraz jego lvl to: "+hero.getlvl());
+            hero.setexp(doNastepnegoLvl);
+            hero.sethp(hero.gethp()+2);
+            hero.setmoc(hero.getmoc()+1);
+            System.out.println("ilosc exp: "+hero.getexp());
+            if(doNastepnegoLvl>=hero.getWymaganeDoLvl()) sprawdzLvl(hero);
+        }
     }
 }
