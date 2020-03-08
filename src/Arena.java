@@ -1,26 +1,19 @@
 public class Arena {
 
     void tura(Przeciwnik hero, Przeciwnik pr){
-        obrona(hero,pr);
-        if(!sprawdzCzyZyje(hero)) return;
-        atakBronia(hero,pr);
+            while(true) {
+                obrona(hero, pr);
+                if (!sprawdzCzyZyje(hero)) return;
+                atakBronia(hero, pr);
+                if (!sprawdzCzyPrzeciwnikZyje(hero, pr)) return;
+                System.out.println("Doszlismy do konca tury");
+            }
     }
 
     void atakBronia(Przeciwnik hero, Przeciwnik pr){
         System.out.println("ilosc hp przeciwnika: "+pr.gethp());
         pr.sethp(pr.gethp()-(hero.getbron().getobrazenia()*hero.getmoc()));
         System.out.println("hp przeciwnika po ataku mieczem: "+pr.gethp());
-        if(pr.gethp()<=0){
-            System.out.println(pr.gettyp()+ " przegrywa!");
-            if(pr.czyPotwor){
-                hero.setexp(hero.getexp()+pr.getexp());
-                sprawdzLvl(hero);
-            } else{
-                // TODO Walka z przeciwnikiem
-            }
-        } else {
-            System.out.println(pr.gettyp()+" jeszcze zyje");
-        }
     }
 
     void obrona(Przeciwnik hero, Przeciwnik pr){
@@ -55,5 +48,14 @@ public class Arena {
             return false;
         } else
             return true;
+    }
+
+    boolean sprawdzCzyPrzeciwnikZyje(Przeciwnik hero,Przeciwnik pr){
+        if(pr.gethp()<0) {
+            System.out.println(pr.gettyp() + " przegrywa!");
+            hero.setexp(hero.getexp() + pr.getexp());
+            sprawdzLvl(hero);
+            return false;
+        } else return true;
     }
 }

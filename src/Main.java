@@ -9,7 +9,7 @@ public class Main {
         Bron wloczniaSmoka = new Bron(50, 200, false, "wloczniaSmoka");
 
         Postac elf = new Postac(1, 15, 0,2, "Elf", false);
-        Potwor dzikiPies = new Potwor(1,1,1,1,"DzikiPies", true);
+        Potwor dzikiPies = new Potwor(1,1,9,100,"DzikiPies", true);
 
         wojownik.wezBron(halabarda);
 
