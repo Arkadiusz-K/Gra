@@ -12,6 +12,7 @@ public class Arena extends Walka{
             }
     }
 
+    // redundancja?
     Potwor wybierzPotwora(){
         System.out.println("Wybierz przeciwnika: ");
         System.out.println("1 jeśli Dziki Pies");
