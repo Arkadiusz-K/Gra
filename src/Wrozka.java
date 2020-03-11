@@ -14,9 +14,11 @@ public class Wrozka extends Postac {
         switch (wybor) {
             case 1: {
                 wspierajLosowo(hero);
+                break;
             }
             case 2: {
                 pocalunekSmierci(cel);
+                break;
             }
         }
     }

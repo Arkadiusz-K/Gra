@@ -15,9 +15,11 @@ public class Wojownik extends Postac{
         switch(wybor){
             case 1: {
                 punchdown(cel);
+                break;
             }
             case 2: {
                 furia();
+                break;
             }
         }
 

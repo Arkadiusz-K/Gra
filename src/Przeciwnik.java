@@ -74,6 +74,16 @@ abstract public class Przeciwnik {
         iloscZyc = ilZyc;
     }
 
+    boolean czyZarazony = false;
+    void zostalZarazonyPrzezElfa(){
+        czyZarazony = true;
+    }
+
+    void sprawdzCzyZarazony(){
+        if(czyZarazony)
+            sethp(gethp()*0.95);
+    }
+
     public static void wait(int ms){
         try
         {

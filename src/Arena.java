@@ -35,6 +35,11 @@ public class Arena extends Walka{
         }
     }
 
+    void atak(Przeciwnik hero,Przeciwnik cel){
+        cel.sethp((cel.gethp()-(hero.getbron().getobrazenia()+(int)(Math.random()*5))*hero.getmoc()));
+        System.out.println("hp przeciwnika po ataku mieczem: "+cel.gethp());
+    }
+
     void obrona(Przeciwnik hero,Przeciwnik pr){
         int szansaObrony = (int)(Math.random()*100);
         System.out.println("Szansa obrony: "+szansaObrony);

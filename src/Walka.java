@@ -1,11 +1,21 @@
 public class Walka {
 
-    void atak(Przeciwnik hero, Przeciwnik cel){
+    void atak(Przeciwnik hero1, Przeciwnik hero2,Przeciwnik cel){
         System.out.println("ilosc hp przeciwnika: "+cel.gethp());
-        cel.sethp((cel.gethp()-(hero.getbron().getobrazenia()+(int)(Math.random()*5))*hero.getmoc()));
+        if(hero1.gettyp().equals("Wojownik") || hero2.gettyp().equals("Wojownik")){
+            System.out.println("Wojownik atakuje");
+            cel.sethp((cel.gethp()-(hero1.getbron().getobrazenia()+(int)(Math.random()*5))*hero1.getmoc()));
+        } else if (hero1.gettyp().equals("Ninja") || hero2.gettyp().equals("Ninja")){
+            System.out.println("Ninja atakuje");
+            cel.sethp(cel.gethp()-3);
+        } else if (hero1.gettyp().equals("Elf") || hero2.gettyp().equals("Elf") ){
+            System.out.println("Elf atakuje");
+            cel.sethp(cel.gethp()-2);
+        } else if (hero1.gettyp().equals("Wrozka") || hero2.gettyp().equals("Wrozka") ){
+            System.out.println("Wrozka atakuje");
+            cel.sethp(cel.gethp()-2);
+        }
         System.out.println("hp przeciwnika po ataku mieczem: "+cel.gethp());
-        // Obsluga furii, ale hero jest typu przeciwnik
-        System.out.printf("Hp hero: "+hero.gethp());
     }
 
     void obrona(Przeciwnik hero1, Przeciwnik hero2, Przeciwnik pr){
@@ -24,7 +34,7 @@ public class Walka {
 
     boolean sprawdzCzyZyje(Przeciwnik hero){
         if(hero.gethp()<0){
-            System.out.println(hero.gettyp()+" przegral, tracisz zycie");
+            System.out.println(hero.gettyp()+" NIE ZYJE !!!!!!!!!!!!!!!!");
             hero.setIloscZyc(hero.getilosczyc()-1);
             return false;
         } else

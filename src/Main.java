@@ -9,18 +9,14 @@ public class Main{
         Postac[] tablicaBohaterow = new Postac[2];
         int punkty = przygotowanie.wyborBohaterow(tablicaBohaterow);
 
-
-
         //walka.walkaZpotworem(wojownik);
         bitwa.bitwa(tablicaBohaterow,punkty);
     }
-
 }
 
 /*
 TODO
 1. GUI
-2. System walk 3 vs 3
-3. Rozdzielenie na klasy
-4. W wyborze przeciwnika zmienic tablice na kontener i jesli przeciwnik pokonany to wypada z kontenera
+2. Rozbudowa klas
+3. Zbalansowanie postaci
  */

@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BitwaTrojek extends Walka{
     void bitwa(Postac[] tablicaBohaterow,int punkty){
 
-        Przeciwnik[] tablicaPrzeciwnikow = new Przeciwnik[3];   // tablica trzech przeciwnikow
+        Potwor[] tablicaPrzeciwnikow = new Potwor[3];   // tablica trzech przeciwnikow
         losujPrzeciwnikow(tablicaPrzeciwnikow);                 // losowy przydzial wrogow
         Przeciwnik cel = wybierzCel(tablicaPrzeciwnikow);       // wybor przeciwnika do ataku
         System.out.println("cel: "+cel.getimie());
@@ -11,7 +11,7 @@ public class BitwaTrojek extends Walka{
         switch(punkty){
             case 240: {
                 // scenariusz ? i elf
-                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Elf elf = new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
                 break;
             }
             case 200: {
@@ -31,20 +31,42 @@ public class BitwaTrojek extends Walka{
             }
             case 80: {
                 // scenariusz elf i ninja
-                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Elf elf = new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
                 Ninja nin = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
                 break;
             }
             case 64:{
                 // scenariusz elf i wrozka
-                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Elf elf = new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
                 Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
                 break;
             }
             case 61: {
                 // scenariusz elf i wojownik
-                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Elf elf = new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
                 Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                Bron halabarda = new Bron(15, 8, false, "halabarda");
+                woj.wezBron(halabarda);
+                int tura=0;
+                while(cel.gethp()>0) {
+                    if(tura%3==0){
+                        int losowaniePostaci = (int)(Math.random()*2);
+                        if(losowaniePostaci==0){
+                            // wybor ataku specjalnego wojownika
+                            woj.wyborAtakuSpecjalnego(cel);
+                        } else{
+                            // wybor ataku specjalnego wrozki
+                            elf.wyborAtakuSpecjalnego(cel);
+                        }
+                    }
+                    atak(woj, elf,cel);
+                    if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
+                    obrona(woj,elf,cel);
+                    if (!sprawdzCzyZyje(woj)) return;
+                    if (!sprawdzCzyZyje(elf)) return;
+                    tura++;
+                }
+
                 break;
             }
             case 24: {
@@ -60,13 +82,15 @@ public class BitwaTrojek extends Walka{
                 break;
             }
             case 5: {
-                // scenariusz wrozka i wojownik
+                // SCENARIUSZ WOJOWNIK I WROZKA
+                // PRZYGOTOWANIE
                 Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
                 Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
                 Bron halabarda = new Bron(15, 8, false, "halabarda");
                 woj.wezBron(halabarda);
                 int tura=0;
-                while(cel.gethp()>0) {
+                // WALKA
+                while(cel.gethp()>0 && woj.gethp()>0 && wr.gethp()>0) {
                     if(tura%3==0){
                         int losowaniePostaci = (int)(Math.random()*2);
                         if(losowaniePostaci==0){
@@ -74,14 +98,14 @@ public class BitwaTrojek extends Walka{
                             woj.wyborAtakuSpecjalnego(cel);
                         } else{
                             // wybor ataku specjalnego wrozki
-
+                            wr.wyborAtakuSpecjalnego(cel,woj);
                         }
                     }
-                    atak(woj, cel);
+                    atak(woj, wr, cel);
                     if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
                     obrona(woj,wr,cel);
-                    if (!sprawdzCzyZyje(woj)) return;
-                    if (!sprawdzCzyZyje(wr)) return;
+                   // if (!sprawdzCzyZyje(woj)) return;
+                    //if (!sprawdzCzyZyje(wr)) return;
                     tura++;
                 }
                 break;
@@ -89,7 +113,7 @@ public class BitwaTrojek extends Walka{
         }
     }
 
-    void losujPrzeciwnikow(Przeciwnik[] tablicaPrzeciwnikow){
+    void losujPrzeciwnikow(Potwor[] tablicaPrzeciwnikow){
 
         int[] tabelaLosujaca = new int[3];
         for(int i=0;i<3;i++){
@@ -107,7 +131,7 @@ public class BitwaTrojek extends Walka{
                      break;
                 }
                 case 1: {
-                    Potwor zablakanyPies = new Potwor("Zablakany pies",2,2,5,7,"Zablakany pies", true);
+                    Potwor zablakanyPies = new Potwor("Zablakany pies",2000,2,5,1000,"Zablakany pies", true);
                     tablicaPrzeciwnikow[i] = zablakanyPies;
                     i++;
                     break;

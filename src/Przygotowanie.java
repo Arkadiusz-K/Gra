@@ -7,7 +7,7 @@ public class Przygotowanie {
         System.out.println("Wybierz 3 bohaterow! (Moga sie powtarzac). Kazdy z nich posiada inne umiejetnosci oraz statystyki");
         System.out.println("-----------------------------------------------------------------");
         opisBohaterow();
-        System.out.println("Wcisnij 1 jesli wybierasz Wojownika, 2 jesli Wrozke");
+        System.out.println("Wcisnij 1 jesli wybierasz Wojownika, 2 jesli Wrozke, 4 jesli Elf");
         for(int i=0;i<tablicaBohaterow.length;i++){
             System.out.println("Wybierz bohatera nr "+i);
             Scanner scanner = new Scanner(System.in);
@@ -58,6 +58,9 @@ public class Przygotowanie {
         System.out.println("Umiejetnosci: ");
         System.out.println("1. Losowe Wsparcie - zostaje wylosowane jakie wsparcie zostanie wykonane na innym czlonku druzyny. Moze to byc wzmocnienie ataku o 10% albo 20% albo zwiekszenie sily o 10%");
         System.out.println("2. Pocalunek Smierci - 10% szans na odebranie przeciwnikowi 90% punktow zycia");
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("Elf - specjalista od niecodziennych zaklec");
+        System.out.println("1. Koronawirus - po zarazeniu istnieje 80% szans na odebranie 5% zycia przeciwnika w kazdej turze");
 
     }
 }
