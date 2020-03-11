@@ -4,6 +4,8 @@ public class Walka {
         System.out.println("ilosc hp przeciwnika: "+cel.gethp());
         cel.sethp((cel.gethp()-(hero.getbron().getobrazenia()+(int)(Math.random()*5))*hero.getmoc()));
         System.out.println("hp przeciwnika po ataku mieczem: "+cel.gethp());
+        // Obsluga furii, ale hero jest typu przeciwnik
+        System.out.printf("Hp hero: "+hero.gethp());
     }
 
     void obrona(Przeciwnik hero, Przeciwnik pr){
@@ -46,5 +48,17 @@ public class Walka {
             System.out.println("ilosc exp: "+hero.getexp());
             if(doNastepnegoLvl>=hero.getWymaganeDoLvl()) sprawdzLvl(hero);
         }
+    }
+
+    void wyswietlStatystyki(Przeciwnik hero){
+        System.out.println("----------------------------STATYSTYKI POSTACI ------------"+hero.gettyp());
+        System.out.println("typ: "+hero.gettyp());
+        System.out.println("lvl: "+hero.getlvl());
+        System.out.println("exp: "+hero.getexp());
+        System.out.println("wymagany exp: "+hero.getWymaganeDoLvl());
+        System.out.println("Bron: "+hero.getbron().getNazwa_broni());
+        System.out.println("---------statystyki do walki----------");
+        System.out.println("moc: "+hero.getmoc());
+        System.out.println("hp: "+hero.gethp());
     }
 }

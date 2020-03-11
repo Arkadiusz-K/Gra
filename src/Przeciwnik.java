@@ -1,19 +1,19 @@
-public class Przeciwnik {
-    protected int moc;
+abstract public class Przeciwnik {
+    protected double moc;
     protected int lvl;
     protected double exp;
-    protected int hp;
+    protected double hp;
     protected String typ;
     protected boolean czyPotwor;
     protected Bron bron;
     protected double wymaganeDoLvl;
     protected int iloscZyc;
 
-    int getmoc(){
+    double getmoc(){
         return moc;
     }
 
-    void setmoc(int m){
+    void setmoc(double m){
         moc = m;
     }
 
@@ -33,11 +33,11 @@ public class Przeciwnik {
         this.exp = exp;
     }
 
-    int gethp(){
+    double gethp(){
         return hp;
     }
 
-    void sethp(int hp){
+    void sethp(double hp){
         this.hp = hp;
     }
 

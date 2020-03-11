@@ -6,6 +6,8 @@ public class BitwaTrojek extends Walka{
         losujPrzeciwnikow(tablicaPrzeciwnikow);                 // losowy przydzial wrogow
         Przeciwnik cel = wybierzCel(tablicaPrzeciwnikow);       // wybor przeciwnika do ataku
         System.out.println("cel: "+cel.gettyp());
+
+        Wojownik woj = (Wojownik)hero1;
         while(cel.gethp()>0) {
             atak(hero1, cel);
             if (!sprawdzCzyPrzeciwnikZyje(hero1, cel)) return;

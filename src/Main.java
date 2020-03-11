@@ -4,16 +4,16 @@ public class Main {
     public static void main(String[] args){
         Arena walka = new Arena();
         BitwaTrojek bitwa = new BitwaTrojek();
-        Postac wojownik = new Postac(1,20, 0, 20, "Wojownik",false);
-        Postac wojownik2 = new Postac(1,20, 0, 20, "Wojownik",false);
-        Postac wojownik3 = new Postac(1,20, 0, 20, "Wojownik",false);
+        Wojownik wojownik = new Wojownik(1,20, 0, 20, "Wojownik",false);
+        Wojownik wojownik2 = new Wojownik(1,20, 0, 20, "Wojownik",false);
+        Wojownik wojownik3 = new Wojownik(1,20, 0, 20, "Wojownik",false);
         Bron halabarda = new Bron(15, 8, false, "halabarda");
 
         wojownik.wezBron(halabarda);
         wojownik2.wezBron(halabarda);
         wojownik3.wezBron(halabarda);
 
-        walka.walkaZpotworem(wojownik);
+        //walka.walkaZpotworem(wojownik);
         bitwa.bitwa(wojownik,wojownik2,wojownik3);
     }
 }
