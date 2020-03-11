@@ -10,6 +10,7 @@ public class Bron {
         nazwa_broni = naz;
     }
 
+
     String getNazwa_broni(){
         return nazwa_broni;
     }
