@@ -1,24 +1,91 @@
 import java.util.Scanner;
 
 public class BitwaTrojek extends Walka{
-    void bitwa(Postac[] tablicaBohaterow){
-        Postac hero1 = tablicaBohaterow[0];
-        Postac hero2 = tablicaBohaterow[1];
-        Postac hero3 = tablicaBohaterow[2];
+    void bitwa(Postac[] tablicaBohaterow,int punkty){
 
         Przeciwnik[] tablicaPrzeciwnikow = new Przeciwnik[3];   // tablica trzech przeciwnikow
         losujPrzeciwnikow(tablicaPrzeciwnikow);                 // losowy przydzial wrogow
         Przeciwnik cel = wybierzCel(tablicaPrzeciwnikow);       // wybor przeciwnika do ataku
         System.out.println("cel: "+cel.getimie());
 
-        Wojownik woj = (Wojownik)hero1;
-        Wrozka wr = (Wrozka)hero3;
+        switch(punkty){
+            case 240: {
+                // scenariusz ? i elf
+                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                break;
+            }
+            case 200: {
+                // scenariusz ? i ninja
+                Ninja nin = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
+                break;
+            }
+            case 184: {
+                // scenariusz ? i wrozka
+                Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                break;
+            }
+            case 181: {
+                // scenariusz ? i wojownik
+                Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                break;
+            }
+            case 80: {
+                // scenariusz elf i ninja
+                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Ninja nin = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
+                break;
+            }
+            case 64:{
+                // scenariusz elf i wrozka
+                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                break;
+            }
+            case 61: {
+                // scenariusz elf i wojownik
+                new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                break;
+            }
+            case 24: {
+                // scenariusz ninja i wrozka
+                Ninja nin = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
+                Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                break;
+            }
+            case 21: {
+                // scenariusz ninja i wojownik
+                Ninja nin = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
+                Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                break;
+            }
+            case 5: {
+                // scenariusz wrozka i wojownik
+                Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                Bron halabarda = new Bron(15, 8, false, "halabarda");
+                woj.wezBron(halabarda);
+                int tura=0;
+                while(cel.gethp()>0) {
+                    if(tura%3==0){
+                        int losowaniePostaci = (int)(Math.random()*2);
+                        if(losowaniePostaci==0){
+                            // wybor ataku specjalnego wojownika
+                            woj.wyborAtakuSpecjalnego(cel);
+                        } else{
+                            // wybor ataku specjalnego wrozki
 
-        while(cel.gethp()>0) {
-            atak(hero1, cel);
-            if (!sprawdzCzyPrzeciwnikZyje(hero1, cel)) return;
-            obrona(hero1,cel);
-            if (!sprawdzCzyZyje(hero1)) return;
+                        }
+                    }
+                    atak(woj, cel);
+                    if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
+                    obrona(woj,wr,cel);
+                    if (!sprawdzCzyZyje(woj)) return;
+                    if (!sprawdzCzyZyje(wr)) return;
+                    tura++;
+                }
+                break;
+            }
         }
     }
 

@@ -8,5 +8,4 @@ public class Potwor extends Przeciwnik {
         typ = t;
         czyPotwor = czypo;
     }
-
 }

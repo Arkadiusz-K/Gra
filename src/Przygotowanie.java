@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
+// Tutaj sa tworzeni bohaterowie zeby mozna bylo ich przekazac do walki trojek jak i na Arene
 public class Przygotowanie {
-    void wyborBohaterow(Postac[] tablicaBohaterow){
+    int wyborBohaterow(Postac[] tablicaBohaterow){
+        int punkty=0;
         System.out.println("Wybierz 3 bohaterow! (Moga sie powtarzac). Kazdy z nich posiada inne umiejetnosci oraz statystyki");
         System.out.println("-----------------------------------------------------------------");
         opisBohaterow();
@@ -13,10 +15,27 @@ public class Przygotowanie {
             switch(wybor){
                 case 1:{
                     tablicaBohaterow[i] = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                    punkty++;
                     break;
                 }
                 case 2:{
                     tablicaBohaterow[i] = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                    punkty+=4;
+                    break;
+                }
+                case 3:{
+                    tablicaBohaterow[i] = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
+                    punkty+=20;
+                    break;
+                }
+                case 4:{
+                    tablicaBohaterow[i] = new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
+                    punkty+=60;
+                    break;
+                }
+                case 5:{
+                    tablicaBohaterow[i] = new Elf("Elf Elmir", 2,20, 0, 20, "Elf",false);
+                    punkty+=180;
                     break;
                 }
             }
@@ -25,6 +44,7 @@ public class Przygotowanie {
         for(int j=0;j<tablicaBohaterow.length;j++){
             System.out.println(tablicaBohaterow[j].gettyp()+" o imieniu: "+tablicaBohaterow[j].getimie());
         }
+        return punkty;
     }
 
     //  Lepiej wczytac z pliku
@@ -32,7 +52,7 @@ public class Przygotowanie {
         System.out.println("Wojownik - duza sila ataku i bazowanie na swojej fizycznosci, brak umiejetnosci magicznych");
         System.out.println("Umiejetnosci: ");
         System.out.println("1. Punchdown - 30% szans na uderzenie krytyczne tj. 3*silniejsze");
-        System.out.println("2. Furia - Zyskuje 40% sily ataku, ale traci 30% zycia");
+        System.out.println("2. Furia - Wojownik zyskuje 40% sily ataku, ale traci 30% zycia");
         System.out.println("------------------------------------------------------------------");
         System.out.println("Wrozka - wsparcie dla druzyny dzieki uzytej magii");
         System.out.println("Umiejetnosci: ");

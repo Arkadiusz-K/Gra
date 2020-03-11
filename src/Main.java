@@ -6,18 +6,13 @@ public class Main{
         BitwaTrojek bitwa = new BitwaTrojek();
 
         Przygotowanie przygotowanie = new Przygotowanie();
-        Postac[] tablicaBohaterow = new Postac[3];
-        przygotowanie.wyborBohaterow(tablicaBohaterow);
-
-        Bron halabarda = new Bron(15, 8, false, "halabarda");
-
-        tablicaBohaterow[0].wezBron(halabarda);
-        tablicaBohaterow[0].wezBron(halabarda);
+        Postac[] tablicaBohaterow = new Postac[2];
+        int punkty = przygotowanie.wyborBohaterow(tablicaBohaterow);
 
 
 
         //walka.walkaZpotworem(wojownik);
-        bitwa.bitwa(tablicaBohaterow);
+        bitwa.bitwa(tablicaBohaterow,punkty);
     }
 
 }

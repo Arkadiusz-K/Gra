@@ -8,14 +8,18 @@ public class Walka {
         System.out.printf("Hp hero: "+hero.gethp());
     }
 
-    void obrona(Przeciwnik hero, Przeciwnik pr){
+    void obrona(Przeciwnik hero1, Przeciwnik hero2, Przeciwnik pr){
         int szansaObrony = (int)(Math.random()*100);
         System.out.println("Szansa obrony: "+szansaObrony);
-        System.out.println("ilosc zycia przed atakiem "+hero.gettyp()+" to: "+hero.gethp());
         if(szansaObrony>50) return;
-        System.out.println("Nie udalo sie obronic przed atakiem: "+pr.gettyp() +":(");
-        hero.sethp(hero.gethp()-pr.getmoc());
-        System.out.println("ilosc zycia po ataku "+hero.gettyp()+" to: "+hero.gethp());
+        System.out.println("Nie udalo obronic sie przed atakiem :(");
+        if(Math.random()*2==0){
+            hero1.sethp(hero1.gethp()-pr.getmoc());
+            System.out.println(hero1.gettyp()+" traci: "+pr.getmoc()+" i obecnie ma: "+hero1.gethp()+" hp!");
+        } else{
+            hero1.sethp(hero2.gethp()-pr.getmoc());
+            System.out.println(hero2.gettyp()+" traci: "+pr.getmoc()+" i obecnie ma: "+hero2.gethp()+" hp!");
+        }
     }
 
     boolean sprawdzCzyZyje(Przeciwnik hero){

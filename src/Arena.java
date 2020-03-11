@@ -34,4 +34,13 @@ public class Arena extends Walka{
             }
         }
     }
+
+    void obrona(Przeciwnik hero,Przeciwnik pr){
+        int szansaObrony = (int)(Math.random()*100);
+        System.out.println("Szansa obrony: "+szansaObrony);
+        if(szansaObrony>50) return;
+        System.out.println("Nie udalo obronic sie przed atakiem :(");
+        hero.sethp(hero.gethp()-pr.getmoc());
+        System.out.println(hero.gettyp()+" traci: "+pr.getmoc()+" i obecnie ma: "+hero.gethp()+" hp!");
+    }
 }

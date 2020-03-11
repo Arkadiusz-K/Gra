@@ -1,7 +1,26 @@
+import java.util.Scanner;
+
 public class Wojownik extends Postac{
 
     Wojownik(String im,double m,int l, double e, double hp,String t,boolean czypo){
         super(im,m,l,e,hp,t,czypo);
+    }
+
+    void wyborAtakuSpecjalnego(Przeciwnik cel){
+        System.out.println("Ktory atak specjalny wybierasz?");
+        System.out.println("1. punchdown - 30% szans na uderzenie krytyczne tj. 3*silniejsze");
+        System.out.println("2. furia - wojownik zyskuje 40% sily ataku, ale traci 30% zycia");
+        Scanner scanner = new Scanner(System.in);
+        int wybor = scanner.nextInt();
+        switch(wybor){
+            case 1: {
+                punchdown(cel);
+            }
+            case 2: {
+                furia();
+            }
+        }
+
     }
 
     // 3 metody: furia, punchdown
