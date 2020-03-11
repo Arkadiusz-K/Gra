@@ -1,5 +1,6 @@
 public class Potwor extends Przeciwnik {
-    Potwor(double m,int l, double e, double hp,String t, boolean czypo){
+    Potwor(String im,double m,int l, double e, double hp,String t, boolean czypo){
+        imie = im;
         moc = m;
         lvl = l;
         exp = e;

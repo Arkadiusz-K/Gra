@@ -1,21 +1,25 @@
 import java.util.*;
 
-public class Main {
+public class Main{
     public static void main(String[] args){
         Arena walka = new Arena();
         BitwaTrojek bitwa = new BitwaTrojek();
-        Wojownik wojownik = new Wojownik(1,20, 0, 20, "Wojownik",false);
-        Wojownik wojownik2 = new Wojownik(1,20, 0, 20, "Wojownik",false);
-        Wojownik wojownik3 = new Wojownik(1,20, 0, 20, "Wojownik",false);
+
+        Przygotowanie przygotowanie = new Przygotowanie();
+        Postac[] tablicaBohaterow = new Postac[3];
+        przygotowanie.wyborBohaterow(tablicaBohaterow);
+
         Bron halabarda = new Bron(15, 8, false, "halabarda");
 
-        wojownik.wezBron(halabarda);
-        wojownik2.wezBron(halabarda);
-        wojownik3.wezBron(halabarda);
+        tablicaBohaterow[0].wezBron(halabarda);
+        tablicaBohaterow[0].wezBron(halabarda);
+
+
 
         //walka.walkaZpotworem(wojownik);
-        bitwa.bitwa(wojownik,wojownik2,wojownik3);
+        bitwa.bitwa(tablicaBohaterow);
     }
+
 }
 
 /*

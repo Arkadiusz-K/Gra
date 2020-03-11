@@ -21,15 +21,15 @@ public class Arena extends Walka{
         int wybor = scanner.nextInt();
         switch(wybor){
             case 1: {
-                Potwor dzikiPies = new Potwor(1,1,9,100,"DzikiPies", true);
+                Potwor dzikiPies = new Potwor("Dziki Pies",1,1,9,100,"DzikiPies", true);
                 return dzikiPies;
             }
             case 2: {
-                Potwor byk = new Potwor(100,10, 100, 150, "Byk", true);
+                Potwor byk = new Potwor("Byk", 100,10, 100, 150, "Byk", true);
                 return byk;
             }
             default: {
-                Potwor dzikiPies1 = new Potwor(1,1,9,100,"DzikiPies", true);
+                Potwor dzikiPies1 = new Potwor("Dziki Pies Dubler",1,1,9,100,"DzikiPies", true);
                 return dzikiPies1;
             }
         }

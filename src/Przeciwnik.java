@@ -1,4 +1,5 @@
 abstract public class Przeciwnik {
+    protected String imie;
     protected double moc;
     protected int lvl;
     protected double exp;
@@ -8,6 +9,10 @@ abstract public class Przeciwnik {
     protected Bron bron;
     protected double wymaganeDoLvl;
     protected int iloscZyc;
+
+    String getimie(){
+        return imie;
+    }
 
     double getmoc(){
         return moc;
@@ -68,4 +73,16 @@ abstract public class Przeciwnik {
     void setIloscZyc(int ilZyc){
         iloscZyc = ilZyc;
     }
+
+    public static void wait(int ms){
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+
 }

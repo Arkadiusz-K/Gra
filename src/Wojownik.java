@@ -1,16 +1,12 @@
 public class Wojownik extends Postac{
 
-    Wojownik(double m,int l, double e, double hp,String t,boolean czypo){
-        moc = m;
-        lvl = l;
-        exp = e;
-        this.hp = hp;
-        typ = t;
-        czyPotwor = czypo;
-        wymaganeDoLvl = 5;
-        iloscZyc = 3;
+    Wojownik(String im,double m,int l, double e, double hp,String t,boolean czypo){
+        super(im,m,l,e,hp,t,czypo);
     }
 
+    // 3 metody: furia, punchdown
+
+    // Zyskuje 40% sily ataku, ale traci 30% zycia
     void furia(){
         sethp(Math.round(gethp()*0.7));
         setmoc(Math.round(getmoc()*1.4));
