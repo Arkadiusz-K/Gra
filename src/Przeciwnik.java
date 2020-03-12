@@ -80,8 +80,14 @@ abstract public class Przeciwnik {
     }
 
     void sprawdzCzyZarazony(){
-        if(czyZarazony)
-            sethp(gethp()*0.95);
+        if(czyZarazony) {
+            int czyZarazenieOdbieraZycie = (int)(Math.random()*100);
+            if(czyZarazenieOdbieraZycie>80) {
+                sethp(gethp() * 0.95);
+                System.out.println("W tej turze zarazenie odbiera 5% zycia przeciwnika!");
+            } else
+                System.out.println("W tej turze zarazenie nie odbiera zycia");
+        }
     }
 
     public static void wait(int ms){

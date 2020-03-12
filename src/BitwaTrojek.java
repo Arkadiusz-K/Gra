@@ -39,6 +39,50 @@ public class BitwaTrojek extends Walka{
                 // scenariusz elf i wrozka
                 Elf elf = new Elf("Elf Elmir", 1,20, 0, 20, "Elf",false);
                 Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                Postac pom = new Postac("pomocnik",1,1,1,1, "Nikt",false);
+                int tura=0;
+                boolean wojownikZyje = true;
+                boolean wrozkaZyje = true;
+
+                // WALKA
+                while(cel.gethp()>0) {
+                    if(tura%3==0){
+                        if(wojownikZyje && wrozkaZyje) {
+                            int losowaniePostaci = (int) (Math.random() * 2);
+                            if (losowaniePostaci == 0) {
+                                // wybor ataku specjalnego wojownika
+                                wr.wyborAtakuSpecjalnego(cel,elf);
+                            } else {
+                                // wybor ataku specjalnego wrozki
+                                elf.wyborAtakuSpecjalnego(cel);
+                            }
+                        } else if(wojownikZyje) wr.wyborAtakuSpecjalnego(cel,elf);
+                        else elf.wyborAtakuSpecjalnego(cel);
+                    }
+
+                    // Atakowac moze tylko zywy
+                    if(wojownikZyje && wrozkaZyje)
+                        atak(wr, elf, cel);
+                    else if(wojownikZyje)
+                        atak(wr,pom,cel);
+                    else
+                        atak(elf,pom,cel);
+                    // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
+                    if (!sprawdzCzyPrzeciwnikZyje(wr, cel)) return;
+
+                    // Bronic sie moze tylko zywy
+                    if(wojownikZyje && wrozkaZyje)
+                        obrona(wr,elf,cel);
+                    else if(wojownikZyje)
+                        obrona(wr,cel);
+                    else
+                        obrona(elf,cel);
+
+                    if (!sprawdzCzyZyje(wr)) wojownikZyje=false;
+                    if (!sprawdzCzyZyje(elf)) wrozkaZyje = false;
+                    if(!wojownikZyje && !wrozkaZyje) return;
+                    tura++;
+                }
                 break;
             }
             case 61: {
@@ -47,26 +91,52 @@ public class BitwaTrojek extends Walka{
                 Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
                 Bron halabarda = new Bron(15, 8, false, "halabarda");
                 woj.wezBron(halabarda);
+                Postac pom = new Postac("pomocnik",1,1,1,1, "Nikt",false);
                 int tura=0;
+                boolean wojownikZyje = true;
+                boolean wrozkaZyje = true;
+
+                // WALKA
                 while(cel.gethp()>0) {
                     if(tura%3==0){
-                        int losowaniePostaci = (int)(Math.random()*2);
-                        if(losowaniePostaci==0){
-                            // wybor ataku specjalnego wojownika
-                            woj.wyborAtakuSpecjalnego(cel);
-                        } else{
-                            // wybor ataku specjalnego wrozki
-                            elf.wyborAtakuSpecjalnego(cel);
-                        }
+                        if(wojownikZyje && wrozkaZyje) {
+                            int losowaniePostaci = (int) (Math.random() * 2);
+                            if (losowaniePostaci == 0) {
+                                // wybor ataku specjalnego wojownika
+                                woj.wyborAtakuSpecjalnego(cel);
+                            } else {
+                                // wybor ataku specjalnego wrozki
+                                elf.wyborAtakuSpecjalnego(cel);
+                            }
+                        } else if(wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
+                        else elf.wyborAtakuSpecjalnego(cel);
                     }
-                    atak(woj, elf,cel);
+
+                    // Atakowac moze tylko zywy
+                    if(wojownikZyje && wrozkaZyje)
+                        atak(woj, elf, cel);
+                    else if(wojownikZyje)
+                        atak(woj,pom,cel);
+                    else
+                        atak(elf,pom,cel);
+
+                    cel.sprawdzCzyZarazony();
+                    // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
                     if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
-                    obrona(woj,elf,cel);
-                    if (!sprawdzCzyZyje(woj)) return;
-                    if (!sprawdzCzyZyje(elf)) return;
+
+                    // Bronic sie moze tylko zywy
+                    if(wojownikZyje && wrozkaZyje)
+                        obrona(woj,elf,cel);
+                    else if(wojownikZyje)
+                        obrona(woj,cel);
+                    else
+                        obrona(elf,cel);
+
+                    if (!sprawdzCzyZyje(woj)) wojownikZyje=false;
+                    if (!sprawdzCzyZyje(elf)) wrozkaZyje = false;
+                    if(!wojownikZyje && !wrozkaZyje) return;
                     tura++;
                 }
-
                 break;
             }
             case 24: {
@@ -86,9 +156,9 @@ public class BitwaTrojek extends Walka{
                 // PRZYGOTOWANIE
                 Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
                 Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
-                Postac pom = new Postac("pomocnik",1,1,1,1, "Nikt",false);
                 Bron halabarda = new Bron(15, 8, false, "halabarda");
                 woj.wezBron(halabarda);
+                Postac pom = new Postac("pomocnik",1,1,1,1, "Nikt",false);
                 int tura=0;
                 boolean wojownikZyje = true;
                 boolean wrozkaZyje = true;
@@ -116,6 +186,7 @@ public class BitwaTrojek extends Walka{
                         atak(woj,pom,cel);
                     else
                         atak(wr,pom,cel);
+
                     // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
                     if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
 

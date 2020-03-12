@@ -13,7 +13,7 @@ public class Walka {
             cel.sethp(cel.gethp()-2);
         } else if (hero1.gettyp().equals("Wrozka") || hero2.gettyp().equals("Wrozka") ){
             System.out.println("Wrozka atakuje");
-            cel.sethp(cel.gethp()-2);
+            cel.sethp(cel.gethp()-1);
         }
         System.out.println("hp przeciwnika po ataku mieczem: "+cel.gethp());
     }
@@ -53,7 +53,7 @@ public class Walka {
     }
 
     boolean sprawdzCzyPrzeciwnikZyje(Przeciwnik hero,Przeciwnik pr){
-        if(pr.gethp()<0) {
+        if(pr.gethp()<=0) {
             System.out.println(pr.gettyp() + " przegrywa!");
             hero.setexp(hero.getexp() + pr.getexp());
             sprawdzLvl(hero);

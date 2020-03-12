@@ -61,6 +61,6 @@ public class Przygotowanie {
         System.out.println("------------------------------------------------------------------");
         System.out.println("Elf - specjalista od niecodziennych zaklec");
         System.out.println("1. Koronawirus - po zarazeniu istnieje 80% szans na odebranie 5% zycia przeciwnika w kazdej turze");
-
+        System.out.println("2. Art of Destruction - 50% szans na zabranie przeciwnikowi losowej wartosci hp z pewnego przedzialu (zaleznej od mocy elfa)");
     }
 }
