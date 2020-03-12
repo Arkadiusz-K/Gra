@@ -23,17 +23,28 @@ public class Walka {
         System.out.println("Szansa obrony: "+szansaObrony);
         if(szansaObrony>50) return;
         System.out.println("Nie udalo obronic sie przed atakiem :(");
-        if(Math.random()*2==0){
+        int ktoSieBroni = (int)(Math.random()*2);
+        System.out.println("Jesli 0 to broni sie wojownik: "+ktoSieBroni);
+        if(ktoSieBroni==0){
             hero1.sethp(hero1.gethp()-pr.getmoc());
             System.out.println(hero1.gettyp()+" traci: "+pr.getmoc()+" i obecnie ma: "+hero1.gethp()+" hp!");
         } else{
-            hero1.sethp(hero2.gethp()-pr.getmoc());
+            hero2.sethp(hero2.gethp()-pr.getmoc());
             System.out.println(hero2.gettyp()+" traci: "+pr.getmoc()+" i obecnie ma: "+hero2.gethp()+" hp!");
         }
     }
 
+    void obrona(Przeciwnik hero, Przeciwnik pr){
+        int szansaObrony = (int)(Math.random()*100);
+        System.out.println("Szansa obrony: "+szansaObrony);
+        if(szansaObrony>50) return;
+        System.out.println("Nie udalo obronic sie przed atakiem :(");
+        hero.sethp(hero.gethp()-pr.getmoc());
+        System.out.println(hero.gettyp()+" traci: "+pr.getmoc()+" i obecnie ma: "+hero.gethp()+" hp!");
+    }
+
     boolean sprawdzCzyZyje(Przeciwnik hero){
-        if(hero.gethp()<0){
+        if(hero.gethp()<=0){
             System.out.println(hero.gettyp()+" NIE ZYJE !!!!!!!!!!!!!!!!");
             hero.setIloscZyc(hero.getilosczyc()-1);
             return false;

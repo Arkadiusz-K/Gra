@@ -86,26 +86,50 @@ public class BitwaTrojek extends Walka{
                 // PRZYGOTOWANIE
                 Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
                 Wrozka wr = new Wrozka("Wrozka", 1,20, 0, 20, "Wróżka",false);
+                Postac pom = new Postac("pomocnik",1,1,1,1, "Nikt",false);
                 Bron halabarda = new Bron(15, 8, false, "halabarda");
                 woj.wezBron(halabarda);
                 int tura=0;
+                boolean wojownikZyje = true;
+                boolean wrozkaZyje = true;
+
                 // WALKA
-                while(cel.gethp()>0 && woj.gethp()>0 && wr.gethp()>0) {
+                while(cel.gethp()>0) {
                     if(tura%3==0){
-                        int losowaniePostaci = (int)(Math.random()*2);
-                        if(losowaniePostaci==0){
-                            // wybor ataku specjalnego wojownika
-                            woj.wyborAtakuSpecjalnego(cel);
-                        } else{
-                            // wybor ataku specjalnego wrozki
-                            wr.wyborAtakuSpecjalnego(cel,woj);
-                        }
+                        if(wojownikZyje && wrozkaZyje) {
+                            int losowaniePostaci = (int) (Math.random() * 2);
+                            if (losowaniePostaci == 0) {
+                                // wybor ataku specjalnego wojownika
+                                woj.wyborAtakuSpecjalnego(cel);
+                            } else {
+                                // wybor ataku specjalnego wrozki
+                                wr.wyborAtakuSpecjalnego(cel, woj);
+                            }
+                        } else if(wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
+                        else wr.wyborAtakuSpecjalnego(cel, woj);
                     }
-                    atak(woj, wr, cel);
+
+                    // Atakowac moze tylko zywy
+                    if(wojownikZyje && wrozkaZyje)
+                        atak(woj, wr, cel);
+                    else if(wojownikZyje)
+                        atak(woj,pom,cel);
+                    else
+                        atak(wr,pom,cel);
+                    // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
                     if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
-                    obrona(woj,wr,cel);
-                   // if (!sprawdzCzyZyje(woj)) return;
-                    //if (!sprawdzCzyZyje(wr)) return;
+
+                    // Bronic sie moze tylko zywy
+                    if(wojownikZyje && wrozkaZyje)
+                        obrona(woj,wr,cel);
+                    else if(wojownikZyje)
+                        obrona(woj,cel);
+                    else
+                        obrona(wr,cel);
+
+                    if (!sprawdzCzyZyje(woj)) wojownikZyje=false;
+                    if (!sprawdzCzyZyje(wr)) wrozkaZyje = false;
+                    if(!wojownikZyje && !wrozkaZyje) return;
                     tura++;
                 }
                 break;
@@ -131,7 +155,7 @@ public class BitwaTrojek extends Walka{
                      break;
                 }
                 case 1: {
-                    Potwor zablakanyPies = new Potwor("Zablakany pies",2000,2,5,1000,"Zablakany pies", true);
+                    Potwor zablakanyPies = new Potwor("Zablakany pies",20,2,5,1000,"Zablakany pies", true);
                     tablicaPrzeciwnikow[i] = zablakanyPies;
                     i++;
                     break;
