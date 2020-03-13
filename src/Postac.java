@@ -8,7 +8,7 @@ public class Postac extends Przeciwnik{
         this.hp = hp;
         typ = t;
         czyPotwor = czypo;
-        wymaganeDoLvl = 5;
+        wymaganeDoLvl = 1;
         iloscZyc = 3;
     }
 

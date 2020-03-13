@@ -86,4 +86,15 @@ public class Walka {
         System.out.println("moc: "+hero.getmoc());
         System.out.println("hp: "+hero.gethp());
     }
+
+    public static void wait(int ms){
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
 }

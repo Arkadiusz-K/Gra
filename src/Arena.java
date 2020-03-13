@@ -4,6 +4,7 @@ public class Arena extends Walka{
 
     void walkaZpotworem(Przeciwnik hero){
             Potwor cel = wybierzPotwora();
+             System.out.println("cel: "+cel.gettyp());
             while(true) {
                 obrona(hero, cel);
                 if (!sprawdzCzyZyje(hero)) return;

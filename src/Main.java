@@ -9,7 +9,10 @@ public class Main{
         Postac[] tablicaBohaterow = new Postac[2];
         int punkty = przygotowanie.wyborBohaterow(tablicaBohaterow);
 
-        //walka.walkaZpotworem(wojownik);
+        /*Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+        Bron halabarda = new Bron(15, 8, false, "halabarda");
+        woj.wezBron(halabarda);
+        walka.walkaZpotworem(woj);*/
         bitwa.bitwa(tablicaBohaterow,punkty);
     }
 }
@@ -17,6 +20,9 @@ public class Main{
 /*
 TODO
 1. GUI
-2. Rozbudowa klas
+2. Rozbudowa klas o jeszcze 1 atak specjalny (poprawa koronawirusa bo drugi raz nic nie daje)
 3. Zbalansowanie postaci
+4. Żeby walka trwala do smierci bohaterow
+5. Ulepszony sposob zdobywania lvl (jakis wybor jak ulepszac postac)
+6. Zeby postaci mogly wbijac lvle nie moga byc tworzone na nowo przy walce z kolejnym potworem
  */

@@ -7,7 +7,7 @@ public class Przygotowanie {
         System.out.println("Wybierz 3 bohaterow! (Moga sie powtarzac). Kazdy z nich posiada inne umiejetnosci oraz statystyki");
         System.out.println("-----------------------------------------------------------------");
         opisBohaterow();
-        System.out.println("Wcisnij 1 jesli wybierasz Wojownika, 2 jesli Wrozke, 4 jesli Elf");
+        System.out.println("Wcisnij 1 jesli wybierasz Wojownika, 2 jesli Wrozke, 3 jesli Ninja, 4 jesli Elf");
         for(int i=0;i<tablicaBohaterow.length;i++){
             System.out.println("Wybierz bohatera nr "+i);
             Scanner scanner = new Scanner(System.in);
