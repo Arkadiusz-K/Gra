@@ -3,266 +3,291 @@ import java.util.Scanner;
 public class BitwaTrojek extends Walka{
     void bitwa(Postac[] tablicaBohaterow,int punkty){
 
-            boolean czyZyjesz = true;
+            Potwor[] tablicaPrzeciwnikow = new Potwor[3];   // tablica trzech przeciwnikow
+            losujPrzeciwnikow(tablicaPrzeciwnikow);                 // losowy przydzial wrogow
+            Przeciwnik cel = wybierzCel(tablicaPrzeciwnikow);       // wybor przeciwnika do ataku
+            System.out.println("cel: " + cel.getimie());
 
-            while(czyZyjesz) {
+            int lvlPrzeciwnika = 1;
 
-                Potwor[] tablicaPrzeciwnikow = new Potwor[3];   // tablica trzech przeciwnikow
-                losujPrzeciwnikow(tablicaPrzeciwnikow);                 // losowy przydzial wrogow
-                Przeciwnik cel = wybierzCel(tablicaPrzeciwnikow);       // wybor przeciwnika do ataku
-                System.out.println("cel: " + cel.getimie());
+            switch (punkty) {
+                case 240: {
+                    // scenariusz ? i elf
+                    Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
+                    break;
+                }
+                case 200: {
+                    // scenariusz ? i ninja
+                    Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
+                    break;
+                }
+                case 184: {
+                    // scenariusz ? i wrozka
+                    Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
+                    break;
+                }
+                case 181: {
+                    // scenariusz ? i wojownik
+                    Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
+                    break;
+                }
+                case 80: {
+                    // scenariusz elf i ninja
+                    Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
+                    Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
+                    break;
+                }
+                case 64: {
+                    // scenariusz elf i wrozka
+                    Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
+                    Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
+                    Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
+                    int tura = 0;
+                    boolean wojownikZyje = true;
+                    boolean wrozkaZyje = true;
 
+                    // WALKA
+                    while (cel.gethp() > 0) {
+                        if (tura % 3 == 0) {
+                            if (wojownikZyje && wrozkaZyje) {
+                                int losowaniePostaci = (int) (Math.random() * 2);
+                                if (losowaniePostaci == 0) {
+                                    // wybor ataku specjalnego wojownika
+                                    wr.wyborAtakuSpecjalnego(cel, elf);
+                                } else {
+                                    // wybor ataku specjalnego wrozki
+                                    elf.wyborAtakuSpecjalnego(cel);
+                                }
+                            } else if (wojownikZyje) wr.wyborAtakuSpecjalnego(cel, elf);
+                            else elf.wyborAtakuSpecjalnego(cel);
+                        }
 
-                switch (punkty) {
-                    case 240: {
-                        // scenariusz ? i elf
-                        Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
-                        break;
+                        // Atakowac moze tylko zywy
+                        if (wojownikZyje && wrozkaZyje)
+                            atak(wr, elf, cel);
+                        else if (wojownikZyje)
+                            atak(wr, pom, cel);
+                        else
+                            atak(elf, pom, cel);
+                        // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
+                        if (!sprawdzCzyPrzeciwnikZyje(wr, cel)) return;
+
+                        // Bronic sie moze tylko zywy
+                        if (wojownikZyje && wrozkaZyje)
+                            obrona(wr, elf, cel);
+                        else if (wojownikZyje)
+                            obrona(wr, cel);
+                        else
+                            obrona(elf, cel);
+
+                        if (!sprawdzCzyZyje(wr)) wojownikZyje = false;
+                        if (!sprawdzCzyZyje(elf)) wrozkaZyje = false;
+                        if (!wojownikZyje && !wrozkaZyje) return;
+                        tura++;
                     }
-                    case 200: {
-                        // scenariusz ? i ninja
-                        Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
-                        break;
+                    break;
+                }
+                case 61: {
+                    // scenariusz elf i wojownik
+                    Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
+                    Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
+                    Bron halabarda = new Bron(15, 8, false, "halabarda");
+                    woj.wezBron(halabarda);
+                    Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
+                    int tura = 0;
+                    boolean wojownikZyje = true;
+                    boolean wrozkaZyje = true;
+
+                    // WALKA
+                    while (cel.gethp() > 0) {
+                        if (tura % 3 == 0) {
+                            if (wojownikZyje && wrozkaZyje) {
+                                int losowaniePostaci = (int) (Math.random() * 2);
+                                if (losowaniePostaci == 0) {
+                                    // wybor ataku specjalnego wojownika
+                                    woj.wyborAtakuSpecjalnego(cel);
+                                } else {
+                                    // wybor ataku specjalnego wrozki
+                                    elf.wyborAtakuSpecjalnego(cel);
+                                }
+                            } else if (wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
+                            else elf.wyborAtakuSpecjalnego(cel);
+                        }
+
+                        // Atakowac moze tylko zywy
+                        if (wojownikZyje && wrozkaZyje)
+                            atak(woj, elf, cel);
+                        else if (wojownikZyje)
+                            atak(woj, pom, cel);
+                        else
+                            atak(elf, pom, cel);
+
+                        cel.sprawdzCzyZarazony();
+                        // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
+                        if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
+
+                        // Bronic sie moze tylko zywy
+                        if (wojownikZyje && wrozkaZyje)
+                            obrona(woj, elf, cel);
+                        else if (wojownikZyje)
+                            obrona(woj, cel);
+                        else
+                            obrona(elf, cel);
+
+                        if (!sprawdzCzyZyje(woj)) wojownikZyje = false;
+                        if (!sprawdzCzyZyje(elf)) wrozkaZyje = false;
+                        if (!wojownikZyje && !wrozkaZyje) return;
+                        tura++;
                     }
-                    case 184: {
-                        // scenariusz ? i wrozka
-                        Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
-                        break;
+                    break;
+                }
+                case 24: {
+                    // scenariusz ninja i wrozka
+                    Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
+                    Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
+                    break;
+                }
+                case 21: {
+                    // scenariusz ninja i wojownik
+                    // PRZYGOTOWANIE
+                    Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
+                    Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
+                    Bron halabarda = new Bron(15, 8, false, "halabarda");
+                    woj.wezBron(halabarda);
+                    Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
+                    int tura = 0;
+                    boolean wojownikZyje = true;
+                    boolean ninjaZyje = true;
+
+                    // WALKA
+                    while (cel.gethp() > 0) {
+                        if (tura % 3 == 0) {
+                            if (wojownikZyje && ninjaZyje) {
+                                int losowaniePostaci = (int) (Math.random() * 2);
+                                if (losowaniePostaci == 0) {
+                                    // wybor ataku specjalnego wojownika
+                                    woj.wyborAtakuSpecjalnego(cel);
+                                } else {
+                                    // wybor ataku specjalnego wrozki
+                                    nin.wyborAtakuSpecjalnego(cel, woj);
+                                }
+                            } else if (wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
+                            else nin.wyborAtakuSpecjalnego(cel, woj);
+                        }
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!! Skile obronne ninjy: " + nin.getSkilleObronne());
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!1 Skile obronne wojownika: " + woj.getSkilleObronne());
+                        // Atakowac moze tylko zywy
+                        if (wojownikZyje && ninjaZyje)
+                            atak(woj, nin, cel);
+                        else if (wojownikZyje)
+                            atak(woj, pom, cel);
+                        else
+                            atak(nin, pom, cel);
+
+                        // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
+                        if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
+
+                        // Bronic sie moze tylko zywy
+                        if (wojownikZyje && ninjaZyje)
+                            obrona(woj, nin, cel);
+                        else if (wojownikZyje)
+                            obrona(woj, cel);
+                        else
+                            obrona(nin, cel);
+
+                        if (!sprawdzCzyZyje(woj)) wojownikZyje = false;
+                        if (!sprawdzCzyZyje(nin)) ninjaZyje = false;
+                        if (!wojownikZyje && !ninjaZyje) return;
+                        tura++;
                     }
-                    case 181: {
-                        // scenariusz ? i wojownik
-                        Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
-                        break;
-                    }
-                    case 80: {
-                        // scenariusz elf i ninja
-                        Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
-                        Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
-                        break;
-                    }
-                    case 64: {
-                        // scenariusz elf i wrozka
-                        Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
-                        Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
-                        Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
+                    break;
+                }
+                case 5: {
+                    // SCENARIUSZ WOJOWNIK I WROZKA
+                    // PRZYGOTOWANIE
+
+                    Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
+                    Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
+                    Bron halabarda = new Bron(15, 8, false, "halabarda");
+                    woj.wezBron(halabarda);
+                    Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
+                    boolean czyZyje = true;
+                    while(czyZyje) {
+                        Potwor rywal = przygodaWyborPrzeciwnika(lvlPrzeciwnika);
+                        lvlPrzeciwnika++;
                         int tura = 0;
                         boolean wojownikZyje = true;
                         boolean wrozkaZyje = true;
 
                         // WALKA
-                        while (cel.gethp() > 0) {
+                        while (rywal.gethp() > 0 && czyZyje) {
                             if (tura % 3 == 0) {
                                 if (wojownikZyje && wrozkaZyje) {
                                     int losowaniePostaci = (int) (Math.random() * 2);
                                     if (losowaniePostaci == 0) {
                                         // wybor ataku specjalnego wojownika
-                                        wr.wyborAtakuSpecjalnego(cel, elf);
+                                        woj.wyborAtakuSpecjalnego(rywal);
                                     } else {
                                         // wybor ataku specjalnego wrozki
-                                        elf.wyborAtakuSpecjalnego(cel);
+                                        wr.wyborAtakuSpecjalnego(rywal, woj);
                                     }
-                                } else if (wojownikZyje) wr.wyborAtakuSpecjalnego(cel, elf);
-                                else elf.wyborAtakuSpecjalnego(cel);
+                                } else if (wojownikZyje) woj.wyborAtakuSpecjalnego(rywal);
+                                else wr.wyborAtakuSpecjalnego(rywal, woj);
                             }
 
                             // Atakowac moze tylko zywy
                             if (wojownikZyje && wrozkaZyje)
-                                atak(wr, elf, cel);
+                                atak(woj, wr, rywal);
                             else if (wojownikZyje)
-                                atak(wr, pom, cel);
+                                atak(woj, pom, rywal);
                             else
-                                atak(elf, pom, cel);
-                            // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
-                            if (!sprawdzCzyPrzeciwnikZyje(wr, cel)) return;
-
-                            // Bronic sie moze tylko zywy
-                            if (wojownikZyje && wrozkaZyje)
-                                obrona(wr, elf, cel);
-                            else if (wojownikZyje)
-                                obrona(wr, cel);
-                            else
-                                obrona(elf, cel);
-
-                            if (!sprawdzCzyZyje(wr)) wojownikZyje = false;
-                            if (!sprawdzCzyZyje(elf)) wrozkaZyje = false;
-                            if (!wojownikZyje && !wrozkaZyje) return;
-                            tura++;
-                        }
-                        break;
-                    }
-                    case 61: {
-                        // scenariusz elf i wojownik
-                        Elf elf = new Elf("Elf Elmir", 1, 20, 0, 20, "Elf", false);
-                        Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
-                        Bron halabarda = new Bron(15, 8, false, "halabarda");
-                        woj.wezBron(halabarda);
-                        Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
-                        int tura = 0;
-                        boolean wojownikZyje = true;
-                        boolean wrozkaZyje = true;
-
-                        // WALKA
-                        while (cel.gethp() > 0) {
-                            if (tura % 3 == 0) {
-                                if (wojownikZyje && wrozkaZyje) {
-                                    int losowaniePostaci = (int) (Math.random() * 2);
-                                    if (losowaniePostaci == 0) {
-                                        // wybor ataku specjalnego wojownika
-                                        woj.wyborAtakuSpecjalnego(cel);
-                                    } else {
-                                        // wybor ataku specjalnego wrozki
-                                        elf.wyborAtakuSpecjalnego(cel);
-                                    }
-                                } else if (wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
-                                else elf.wyborAtakuSpecjalnego(cel);
-                            }
-
-                            // Atakowac moze tylko zywy
-                            if (wojownikZyje && wrozkaZyje)
-                                atak(woj, elf, cel);
-                            else if (wojownikZyje)
-                                atak(woj, pom, cel);
-                            else
-                                atak(elf, pom, cel);
-
-                            cel.sprawdzCzyZarazony();
-                            // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
-                            if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
-
-                            // Bronic sie moze tylko zywy
-                            if (wojownikZyje && wrozkaZyje)
-                                obrona(woj, elf, cel);
-                            else if (wojownikZyje)
-                                obrona(woj, cel);
-                            else
-                                obrona(elf, cel);
-
-                            if (!sprawdzCzyZyje(woj)) wojownikZyje = false;
-                            if (!sprawdzCzyZyje(elf)) wrozkaZyje = false;
-                            if (!wojownikZyje && !wrozkaZyje) return;
-                            tura++;
-                        }
-                        break;
-                    }
-                    case 24: {
-                        // scenariusz ninja i wrozka
-                        Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
-                        Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
-                        break;
-                    }
-                    case 21: {
-                        // scenariusz ninja i wojownik
-                        // PRZYGOTOWANIE
-                        Ninja nin = new Ninja("Ninja Marcin", 1, 20, 0, 20, "Ninja", false);
-                        Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
-                        Bron halabarda = new Bron(15, 8, false, "halabarda");
-                        woj.wezBron(halabarda);
-                        Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
-                        int tura = 0;
-                        boolean wojownikZyje = true;
-                        boolean ninjaZyje = true;
-
-                        // WALKA
-                        while (cel.gethp() > 0) {
-                            if (tura % 3 == 0) {
-                                if (wojownikZyje && ninjaZyje) {
-                                    int losowaniePostaci = (int) (Math.random() * 2);
-                                    if (losowaniePostaci == 0) {
-                                        // wybor ataku specjalnego wojownika
-                                        woj.wyborAtakuSpecjalnego(cel);
-                                    } else {
-                                        // wybor ataku specjalnego wrozki
-                                        nin.wyborAtakuSpecjalnego(cel, woj);
-                                    }
-                                } else if (wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
-                                else nin.wyborAtakuSpecjalnego(cel, woj);
-                            }
-                            System.out.println("!!!!!!!!!!!!!!!!!!!!! Skile obronne ninjy: " + nin.getSkilleObronne());
-                            System.out.println("!!!!!!!!!!!!!!!!!!!!!!1 Skile obronne wojownika: " + woj.getSkilleObronne());
-                            // Atakowac moze tylko zywy
-                            if (wojownikZyje && ninjaZyje)
-                                atak(woj, nin, cel);
-                            else if (wojownikZyje)
-                                atak(woj, pom, cel);
-                            else
-                                atak(nin, pom, cel);
+                                atak(wr, pom, rywal);
 
                             // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
-                            if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
-
-                            // Bronic sie moze tylko zywy
-                            if (wojownikZyje && ninjaZyje)
-                                obrona(woj, nin, cel);
-                            else if (wojownikZyje)
-                                obrona(woj, cel);
-                            else
-                                obrona(nin, cel);
-
-                            if (!sprawdzCzyZyje(woj)) wojownikZyje = false;
-                            if (!sprawdzCzyZyje(nin)) ninjaZyje = false;
-                            if (!wojownikZyje && !ninjaZyje) return;
-                            tura++;
-                        }
-                        break;
-                    }
-                    case 5: {
-                        // SCENARIUSZ WOJOWNIK I WROZKA
-                        // PRZYGOTOWANIE
-                        Wojownik woj = new Wojownik("Wojownik Wojciech", 1, 20, 0, 20, "Wojownik", false);
-                        Wrozka wr = new Wrozka("Wrozka", 1, 20, 0, 20, "Wróżka", false);
-                        Bron halabarda = new Bron(15, 8, false, "halabarda");
-                        woj.wezBron(halabarda);
-                        Postac pom = new Postac("pomocnik", 1, 1, 1, 1, "Nikt", false);
-                        int tura = 0;
-                        boolean wojownikZyje = true;
-                        boolean wrozkaZyje = true;
-
-                        // WALKA
-                        while (cel.gethp() > 0 && czyZyjesz) {
-                            if (tura % 3 == 0) {
-                                if (wojownikZyje && wrozkaZyje) {
-                                    int losowaniePostaci = (int) (Math.random() * 2);
-                                    if (losowaniePostaci == 0) {
-                                        // wybor ataku specjalnego wojownika
-                                        woj.wyborAtakuSpecjalnego(cel);
-                                    } else {
-                                        // wybor ataku specjalnego wrozki
-                                        wr.wyborAtakuSpecjalnego(cel, woj);
-                                    }
-                                } else if (wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
-                                else wr.wyborAtakuSpecjalnego(cel, woj);
-                            }
-
-                            // Atakowac moze tylko zywy
-                            if (wojownikZyje && wrozkaZyje)
-                                atak(woj, wr, cel);
-                            else if (wojownikZyje)
-                                atak(woj, pom, cel);
-                            else
-                                atak(wr, pom, cel);
-
-                            // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
-                            if (sprawdzCzyPrzeciwnikZyje(woj, wr, cel)) {
+                            if (sprawdzCzyPrzeciwnikZyje(woj, wr, rywal)) {
 
                                 // Bronic sie moze tylko zywy
                                 if (wojownikZyje && wrozkaZyje)
-                                    obrona(woj, wr, cel);
+                                    obrona(woj, wr, rywal);
                                 else if (wojownikZyje)
-                                    obrona(woj, cel);
+                                    obrona(woj, rywal);
                                 else
-                                    obrona(wr, cel);
+                                    obrona(wr, rywal);
 
                                 if (!sprawdzCzyZyje(woj)) wojownikZyje = false;
                                 if (!sprawdzCzyZyje(wr)) wrozkaZyje = false;
-                                if (!wojownikZyje && !wrozkaZyje) czyZyjesz=false;
+                                if (!wojownikZyje && !wrozkaZyje) czyZyje=false;
                             }
                             tura++;
                         }
-                        break;
                     }
+                    break;
                 }
             }
     }
+
+    Potwor przygodaWyborPrzeciwnika(int lvlPrzeciwnika) {
+        switch (lvlPrzeciwnika) {
+            case 1: {
+                Potwor lvl1 = new Potwor("Dziki Pies", 10, 1, 2, 30, "DzikiPies", true);
+                return lvl1;
+            }
+            case 2: {
+                Potwor lvl2 = new Potwor("Zablakany pies", 12000, 2, 10, 5000, "Zablakany pies", true);
+                return lvl2;
+            }
+            case 3:{
+                Potwor lvl3 =  new Potwor("Dziki Wilk",5,3,11,30,"Dziki Wilk", true);
+                return lvl3;
+            }
+        }
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("GRATULACJE !!!!!!!!!!!!!!!!!!!!!!!!! Przeszedles caly tryb przygody !!!!!!!1");
+        System.exit(0);
+        Potwor lvl1 = new Potwor("Dziki Pies", 10, 1, 2, 30, "DzikiPies", true);
+        return lvl1;
+    }
+
 
     void losujPrzeciwnikow(Potwor[] tablicaPrzeciwnikow){
 
