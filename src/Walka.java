@@ -19,7 +19,7 @@ public class Walka {
     }
 
     void obrona(Przeciwnik hero1, Przeciwnik hero2, Przeciwnik pr){
-        int szansaObrony = (int)(Math.random()*100);
+        int szansaObrony = (int)(Math.random()*100+hero1.skilleObronne+hero2.skilleObronne);
         System.out.println("Szansa obrony: "+szansaObrony);
         if(szansaObrony>50) return;
         System.out.println("Nie udalo obronic sie przed atakiem :(");

@@ -9,6 +9,7 @@ abstract public class Przeciwnik {
     protected Bron bron;
     protected double wymaganeDoLvl;
     protected int iloscZyc;
+    protected int skilleObronne =0;
 
     String getimie(){
         return imie;
@@ -72,6 +73,14 @@ abstract public class Przeciwnik {
 
     void setIloscZyc(int ilZyc){
         iloscZyc = ilZyc;
+    }
+
+    int getSkilleObronne(){
+        return skilleObronne;
+    }
+
+    void setSkilleObronne(int iloscObrony){
+        skilleObronne = iloscObrony;
     }
 
     boolean czyZarazony = false;

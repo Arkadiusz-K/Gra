@@ -147,8 +147,57 @@ public class BitwaTrojek extends Walka{
             }
             case 21: {
                 // scenariusz ninja i wojownik
+                // PRZYGOTOWANIE
                 Ninja nin = new Ninja("Ninja Marcin", 1,20, 0, 20, "Ninja",false);
                 Wojownik woj = new Wojownik("Wojownik Wojciech",1,20, 0, 20, "Wojownik",false);
+                Bron halabarda = new Bron(15, 8, false, "halabarda");
+                woj.wezBron(halabarda);
+                Postac pom = new Postac("pomocnik",1,1,1,1, "Nikt",false);
+                int tura=0;
+                boolean wojownikZyje = true;
+                boolean ninjaZyje = true;
+
+                // WALKA
+                while(cel.gethp()>0) {
+                    if(tura%3==0){
+                        if(wojownikZyje && ninjaZyje) {
+                            int losowaniePostaci = (int) (Math.random() * 2);
+                            if (losowaniePostaci == 0) {
+                                // wybor ataku specjalnego wojownika
+                                woj.wyborAtakuSpecjalnego(cel);
+                            } else {
+                                // wybor ataku specjalnego wrozki
+                                nin.wyborAtakuSpecjalnego(cel,woj);
+                            }
+                        } else if(wojownikZyje) woj.wyborAtakuSpecjalnego(cel);
+                        else nin.wyborAtakuSpecjalnego(cel,woj);
+                    }
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!! Skile obronne ninjy: "+nin.getSkilleObronne());
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!1 Skile obronne wojownika: "+woj.getSkilleObronne());
+                    // Atakowac moze tylko zywy
+                    if(wojownikZyje && ninjaZyje)
+                        atak(woj, nin, cel);
+                    else if(wojownikZyje)
+                        atak(woj,pom,cel);
+                    else
+                        atak(nin,pom,cel);
+
+                    // Jesli przeciwnik nie zyje nie mozna kontynuowac walki
+                    if (!sprawdzCzyPrzeciwnikZyje(woj, cel)) return;
+
+                    // Bronic sie moze tylko zywy
+                    if(wojownikZyje && ninjaZyje)
+                        obrona(woj,nin,cel);
+                    else if(wojownikZyje)
+                        obrona(woj,cel);
+                    else
+                        obrona(nin,cel);
+
+                    if (!sprawdzCzyZyje(woj)) wojownikZyje=false;
+                    if (!sprawdzCzyZyje(nin)) ninjaZyje = false;
+                    if(!wojownikZyje && !ninjaZyje) return;
+                    tura++;
+                }
                 break;
             }
             case 5: {
@@ -232,7 +281,7 @@ public class BitwaTrojek extends Walka{
                     break;
                 }
                 case 2: {
-                    Potwor dzikiWilk = new Potwor("Dziki Wilk",3,3,11,10,"Dziki Wilk", true);
+                    Potwor dzikiWilk = new Potwor("Dziki Wilk",3,3,11,10000,"Dziki Wilk", true);
                     tablicaPrzeciwnikow[i] = dzikiWilk;
                     i++;
                     break;

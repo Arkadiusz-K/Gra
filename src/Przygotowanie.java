@@ -62,5 +62,9 @@ public class Przygotowanie {
         System.out.println("Elf - specjalista od niecodziennych zaklec");
         System.out.println("1. Koronawirus - po zarazeniu istnieje 80% szans na odebranie 5% zycia przeciwnika w kazdej turze");
         System.out.println("2. Art of Destruction - 50% szans na zabranie przeciwnikowi losowej wartosci hp z pewnego przedzialu (zaleznej od mocy elfa)");
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("Ninja - szybki trudny do trafienia");
+        System.out.println("1. Siekanie Ogorkow - zadaje losowa ilosc ciosow (z pewnego przedzialu) odbierajacych po 1 HP");
+        System.out.println("2. Zwinnosc - zwieksza szanse uniknieca ataku o 10% przy pierwszym uzyciu i o 5% przy drugim uzyciu");
     }
 }
