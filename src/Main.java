@@ -1,8 +1,6 @@
-import java.util.*;
-
 public class Main{
     public static void main(String[] args){
-        Arena walka = new Arena();
+        //Arena walka = new Arena();
         BitwaTrojek bitwa = new BitwaTrojek();
 
         Przygotowanie przygotowanie = new Przygotowanie();
@@ -22,7 +20,5 @@ TODO
 1. GUI
 2. Rozbudowa klas o jeszcze 1 atak specjalny (poprawa koronawirusa bo drugi raz nic nie daje)
 3. Zbalansowanie postaci
-4. Żeby walka trwala do smierci bohaterow
-5. Ulepszony sposob zdobywania lvl (jakis wybor jak ulepszac postac)
-6. Zeby postaci mogly wbijac lvle nie moga byc tworzone na nowo przy walce z kolejnym potworem
+4. Ulepszony sposob zdobywania lvl (jakis wybor jak ulepszac postac)
  */
